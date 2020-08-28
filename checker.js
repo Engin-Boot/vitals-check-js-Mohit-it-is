@@ -1,17 +1,14 @@
-const expect = require('chai').expect;
+const check_spo2 = require('./spo2_validator');
+const check_bpm_and_respRate = require('./bpm_reprate_combined_validator');
 
 function vitalsAreOk(bpm, spo2, respRate) {
-    if(bpm < 70 || bpm > 150) {
+    if(check_bpm_and_respRate(bpm,respRate) === false) {
         return false;
-    } else if(spo2 < 90) {
+    } if(check_spo2(spo2) === false) {
         return false;
-    } else if(respRate < 30 || respRate > 95) {
-        return false;
-    }
+    } 
     return true;
 }
 
-expect(vitalsAreOk(100, 95, 70)).to.be.true;
-expect(vitalsAreOk(50, 95, 70)).to.be.false;
-
-console.log('checker is done');
+module.exports = vitalsAreOk;
+require("./Unit_tester.js");   //testing
