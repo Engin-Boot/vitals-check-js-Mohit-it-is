@@ -11,4 +11,4 @@ function vitalsAreOk(bpm, spo2, respRate) {
 }
 
 module.exports = vitalsAreOk;
-require("./Unit_tester.js");   //testing
+require("./Unit_tester.js"); 
