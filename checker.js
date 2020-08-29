@@ -1,5 +1,5 @@
 const check_spo2 = require('./spo2_validator');
-const check_bpm_and_respRate = require('./bpm_reprate_combined_validator');
+const check_bpm_and_respRate = require('./bpm_resprate_combined_validator');
 
 function vitalsAreOk(bpm, spo2, respRate) {
     if(check_bpm_and_respRate(bpm,respRate) === false) {
