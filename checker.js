@@ -1,13 +1,19 @@
-const check_spo2 = require('./spo2_validator');
-const check_bpm_and_respRate = require('./bpm_resprate_combined_validator');
+const isvitalok = require('./vital_validator');
 
-function vitalsAreOk(bpm, spo2, respRate) {
-    if(check_bpm_and_respRate(bpm,respRate) === false) {
+function bool_return(flag){
+    if(flag === false){
         return false;
-    } if(check_spo2(spo2) === false) {
-        return false;
-    } 
+    }
     return true;
+}
+
+function vitalsAreOk(vitalvalues){
+    let flag = true;
+    for (const [key,value] of Object.entries(vitalvalues)){
+        flag = flag && isvitalok(key,value);
+    }
+    
+    return bool_return(flag);   //..refactor to reduce cyclomatic complaxity
 }
 
 module.exports = vitalsAreOk;
