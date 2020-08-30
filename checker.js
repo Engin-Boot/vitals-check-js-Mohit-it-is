@@ -1,17 +1,20 @@
-const expect = require('chai').expect;
+const isvitalok = require('./vital_validator');
 
-function vitalsAreOk(bpm, spo2, respRate) {
-    if(bpm < 70 || bpm > 150) {
-        return false;
-    } else if(spo2 < 90) {
-        return false;
-    } else if(respRate < 30 || respRate > 95) {
+function bool_return(flag){
+    if(flag === false){
         return false;
     }
     return true;
 }
 
-expect(vitalsAreOk(100, 95, 70)).to.be.true;
-expect(vitalsAreOk(50, 95, 70)).to.be.false;
+function vitalsAreOk(vitalvalues){
+    let flag = true;
+    for (const [key,value] of Object.entries(vitalvalues)){
+        flag = flag && isvitalok(key,value);
+    }
+    
+    return bool_return(flag);   //..refactor to reduce cyclomatic complaxity
+}
 
-console.log('checker is done');
+module.exports = vitalsAreOk;
+require("./Unit_tester.js"); 
